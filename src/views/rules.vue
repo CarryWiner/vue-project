@@ -1,6 +1,6 @@
 <template>
   <div>
-    {{ $route.params.userId }}
+    <!-- {{ $route.params.userId }} -->
     <el-form :inline="true" :model="ruleForm" ref="ruleForm" class="formClass">
       <el-form-item prop="search">
         <el-input placeholder="请输入内容" v-model="ruleForm.search" style="width: 300px;">
@@ -15,7 +15,7 @@
       <el-col :span="24">
         <ul class="ulClass">
           <li v-for="(item, index) in newsList" :key="index">
-            <a :href="'#' + index">● {{ item.news }}</a>
+            <a @click="pdf()">● {{ item.news }}</a>
             <span>{{ item.time }}</span>
           </li>
         </ul>
@@ -60,6 +60,13 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    pdf() {
+      this.$router.replace({
+        path: '/pdf'
+      }).catch(() => {
+        return false
+      })
+    },
     onSubmit() {
       console.log(this.ruleForm.search);
     },

@@ -2,7 +2,7 @@
   <el-aside width="230px">
     <el-scrollbar style="height: 100%">
       <el-menu
-        default-active="homepage"
+        :default-active="activeMenu"
         class="el-menu-vertical-demo"
         @open="handleOpen"
         @close="handleClose"
@@ -25,6 +25,7 @@
                     v-for="three in two.subs"
                     :index="three.index"
                     :key="three.index"
+                    @click="goWeekMonth(three)"
                     >{{ three.title }}</el-menu-item
                   >
                 </el-submenu>
@@ -39,7 +40,7 @@
 
           <!-- 一级菜单 -->
           <template v-else>
-            <el-menu-item :index="item.index" :key="item.index" @click="abc">
+            <el-menu-item :index="item.index" :key="item.index" @click="goHome(item)">
               <i :class="item.icon"></i>
               <span slot="title">{{ item.title }}</span>
             </el-menu-item>
@@ -51,11 +52,13 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   components: {},
   data() {
     return {
       isCollapse: true,
+      activeMenu: 'homepage',
       menuList: [
         {
           icon: "el-icon-s-home",
@@ -91,14 +94,38 @@ export default {
           title: "周月讲评",
           subs: [
             {
-              index: "usermanage2",
-              title: "周讲评",
-              name: "周讲评",
+              index: "2021",
+              title: "2021",
+              name: "2021",
+              subs: [
+                {
+                  index: "2021-1",
+                  title: "周讲评",
+                  name: "周讲评",
+                },
+                {
+                  index: "2021-2",
+                  title: "月讲评",
+                  name: "月讲评"
+                }
+              ]
             },
             {
-              index: "usercard1",
-              title: "月讲评",
-              name: "月讲评"
+              index: "2020",
+              title: "2020",
+              name: "2020",
+              subs: [
+                {
+                  index: "2020-1",
+                  title: "周讲评",
+                  name: "周讲评",
+                },
+                {
+                  index: "2020-2",
+                  title: "月讲评",
+                  name: "月讲评"
+                }
+              ]
             },
           ],
         },
@@ -106,27 +133,56 @@ export default {
     };
   },
   computed: {},
-  created() {},
+  created() {
+    if (Cookies.get('activeMenu')) {
+      this.activeMenu = Cookies.get('activeMenu')
+    } else {
+      this.$router.replace('/home')
+      this.activeMenu = 'homepage'
+    }
+  },
   mounted() {},
   methods: {
+    goHome(val) {
+      if (val.title === '主页') {
+        Cookies.remove('activeMenu')
+        Cookies.set('activeMenu', val.index)
+        this.$router.replace({
+          path: '/home'
+        }).catch(() => {
+          return false
+        })
+      }
+    },
     goRules(pre, id) {
       if (pre.title === '法规制度') {
+        Cookies.remove('activeMenu')
+        Cookies.set('activeMenu', id.index)
         this.$router.replace({
           path: '/rules/' + id.index
         }).catch(() => {
           return false
         })
       }
-      if (pre.title === '周月讲评') {
+    },
+    goWeekMonth(val) {
+      if (val.title === '周讲评') {
+        Cookies.remove('activeMenu')
+        Cookies.set('activeMenu', val.index)
         this.$router.replace({
-          path: '/weekmonth'
+          path: '/weekComments'
+        }).catch(() => {
+          return false
+        })
+      } else {
+        Cookies.remove('activeMenu')
+        Cookies.set('activeMenu', val.index)
+        this.$router.replace({
+          path: '/monthComments'
         }).catch(() => {
           return false
         })
       }
-    },
-    abc() {
-      console.log(1);
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -149,6 +205,9 @@ export default {
   background-color: #d3dce6;
   color: #333;
   line-height: 200px;
+  /deep/ .el-menu-item, /deep/ .el-submenu__title{
+    font-size: 16px;
+  }
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   height: 100%;

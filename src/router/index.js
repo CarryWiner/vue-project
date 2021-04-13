@@ -22,16 +22,26 @@ const routes = [
         component: () => import('@/views/rules')
       },
       {
-        path: '/weekmonth',
-        name: 'Weekmonth',
-        component: () => import('@/views/weekmonth')
-      }
+        path: '/weekComments',
+        name: 'WeekComments',
+        component: () => import('@/views/weekComments'),
+      },
+      {
+        path: '/monthComments',
+        name: 'MonthComments',
+        component: () => import('@/views/monthComments'),
+      },
+      {
+        path: '/pdf',
+        name: 'Pdf',
+        component: () => import('@/views/pdf/index')
+      },
     ]
   },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   routes
 })
 
