@@ -22,6 +22,11 @@ const routes = [
         component: () => import('@/views/rules')
       },
       {
+        path: '/addRules',
+        name: 'addRules',
+        component: () => import('@/views/addRules')
+      },
+      {
         path: '/weekComments',
         name: 'WeekComments',
         component: () => import('@/views/weekComments'),
@@ -36,6 +41,11 @@ const routes = [
         name: 'Pdf',
         component: () => import('@/views/pdf/index')
       },
+      {
+        path: '/suggestions',
+        name: 'suggestions',
+        component: () => import('@/views/suggestions')
+      }
     ]
   },
 ]

@@ -32,6 +32,7 @@
 
                 <!-- 二级菜单 -->
                 <el-menu-item v-else :index="two.index" :key="two.index" @click="goRules(item, two)">
+                  <i v-if="two.icon" :class="two.icon" style="vertical-align: text-bottom;"></i>
                   {{two.title}}
                 </el-menu-item>
               </template>
@@ -41,7 +42,7 @@
           <!-- 一级菜单 -->
           <template v-else>
             <el-menu-item :index="item.index" :key="item.index" @click="goHome(item)">
-              <i :class="item.icon"></i>
+              <i :class="item.icon" style="vertical-align: text-bottom;"></i>
               <span slot="title">{{ item.title }}</span>
             </el-menu-item>
           </template>
@@ -86,6 +87,12 @@ export default {
               title: "法规制度类型二",
               name: "法规制度类型二",
             },
+            {
+              icon: "el-icon-circle-plus",
+              index: "add",
+              title: "新增分类",
+              name: "新增分类",
+            },
           ],
         },
         {
@@ -129,6 +136,33 @@ export default {
             },
           ],
         },
+        {
+          icon: "el-icon-s-custom",
+          index: "suggestions",
+          title: "意见建议",
+          subs: [
+            {
+              index: "banggongshi",
+              title: "办公室",
+              name: "办公室",
+            },
+            {
+              index: "jiaobaoke",
+              title: "教保科",
+              name: "教保科",
+            },
+            {
+              index: "keyanxueshuchu",
+              title: "科研学术处",
+              name: "科研学术处",
+            },
+            {
+              index: "bangongshi",
+              title: "办公室",
+              name: "办公室",
+            }
+          ],
+        },
       ],
     };
   },
@@ -155,11 +189,31 @@ export default {
       }
     },
     goRules(pre, id) {
+      debugger
       if (pre.title === '法规制度') {
+        if (id.title === '新增分类') {
+          Cookies.remove('activeMenu')
+          Cookies.set('activeMenu', id.index)
+          this.$router.replace({
+            path: '/rules/addRules'
+          }).catch(() => {
+            return false
+          })
+        } else {
+          Cookies.remove('activeMenu')
+          Cookies.set('activeMenu', id.index)
+          this.$router.replace({
+            path: '/rules/' + id.index
+          }).catch(() => {
+            return false
+          })
+        }
+      }
+      if (pre.title === '意见建议') {
         Cookies.remove('activeMenu')
         Cookies.set('activeMenu', id.index)
         this.$router.replace({
-          path: '/rules/' + id.index
+          path: '/suggestions'
         }).catch(() => {
           return false
         })
