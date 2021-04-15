@@ -27,12 +27,17 @@ const routes = [
         component: () => import('@/views/addRules')
       },
       {
-        path: '/weekComments',
+        path: '/addDate',
+        name: 'addDate',
+        component: () => import('@/views/addDate')
+      },
+      {
+        path: '/weekComments/:id',
         name: 'WeekComments',
         component: () => import('@/views/weekComments'),
       },
       {
-        path: '/monthComments',
+        path: '/monthComments/:id',
         name: 'MonthComments',
         component: () => import('@/views/monthComments'),
       },

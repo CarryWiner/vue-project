@@ -54,7 +54,10 @@ export default {
   methods: {
     goPdf() {
       this.$router.replace({
-        path: '/pdf'
+        path: '/pdf',
+        query: {
+          id: this.$route.path
+        }
       }).catch(() => {
         return false
       })

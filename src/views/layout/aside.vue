@@ -25,7 +25,7 @@
                     v-for="three in two.subs"
                     :index="three.index"
                     :key="three.index"
-                    @click="goWeekMonth(three)"
+                    @click="goWeekMonth(three, two)"
                     >{{ three.title }}</el-menu-item
                   >
                 </el-submenu>
@@ -134,6 +134,12 @@ export default {
                 }
               ]
             },
+            {
+              icon: "el-icon-circle-plus",
+              index: "addDate",
+              title: "新增年份",
+              name: "新增年份",
+            },
           ],
         },
         {
@@ -189,13 +195,12 @@ export default {
       }
     },
     goRules(pre, id) {
-      debugger
       if (pre.title === '法规制度') {
         if (id.title === '新增分类') {
           Cookies.remove('activeMenu')
           Cookies.set('activeMenu', id.index)
           this.$router.replace({
-            path: '/rules/addRules'
+            path: '/addRules'
           }).catch(() => {
             return false
           })
@@ -218,21 +223,34 @@ export default {
           return false
         })
       }
+      if (pre.title === '周月讲评') {
+        if (id.title === '新增年份') {
+          Cookies.remove('activeMenu')
+          Cookies.set('activeMenu', id.index)
+          this.$router.replace({
+            path: '/addDate'
+          }).catch(() => {
+            return false
+          })
+        }
+      }
     },
-    goWeekMonth(val) {
-      if (val.title === '周讲评') {
+    goWeekMonth(pre, id) {
+      debugger
+      console.log(pre, id);
+      if (pre.title === '周讲评') {
         Cookies.remove('activeMenu')
-        Cookies.set('activeMenu', val.index)
+        Cookies.set('activeMenu', pre.index)
         this.$router.replace({
-          path: '/weekComments'
+          path: '/weekComments/' + id.index
         }).catch(() => {
           return false
         })
       } else {
         Cookies.remove('activeMenu')
-        Cookies.set('activeMenu', val.index)
+        Cookies.set('activeMenu', pre.index)
         this.$router.replace({
-          path: '/monthComments'
+          path: '/monthComments/' + id.index
         }).catch(() => {
           return false
         })
