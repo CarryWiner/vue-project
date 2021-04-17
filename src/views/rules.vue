@@ -62,13 +62,13 @@ export default {
   methods: {
     pdf() {
       console.log(this.$route);
-      const map = new Map([
-        ['/rules/usermanage', '法规制度类型一'], ['/rules/usercard', '法规制度类型二'], ['/rules/drivermanage', '法规制度类型三']
-      ])
+      // const map = new Map([
+      //   ['/rules/usermanage', '法规制度类型一'], ['/rules/usercard', '法规制度类型二'], ['/rules/drivermanage', '法规制度类型三']
+      // ])
       this.$router.replace({
         path: '/pdf',
         query: {
-          id: map.get(this.$route.path)
+          id: this.$route.path
         }
       }).catch(() => {
         return false

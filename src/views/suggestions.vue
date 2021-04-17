@@ -9,7 +9,7 @@
       <el-table-column prop="title" label="意见建议标题"></el-table-column>
       <el-table-column prop="time" label="时间" width="180"></el-table-column>
       <el-table-column prop="state" label="状态" width="180"></el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="操作" width="200">
         <template>
           <el-button type="text">查看</el-button>
           <el-button type="text">回复</el-button>
