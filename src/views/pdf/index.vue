@@ -8,13 +8,13 @@
             {{ item.label }}
           </el-link>】
         <el-tooltip content="打印" placement="top">
-          <i class="el-icon-printer printClass"> 打印</i>
+          <i class="el-icon-printer printClass" @click="pdfPrintAll"> 打印</i>
         </el-tooltip>
       </div>
     </div>
     <div style="background: #fff;">
       <div :style="{'width': fontSize, 'height':'100%', 'margin': '0 auto'}">
-        <pdf v-for="i in numPages" :key="i"  :src="url" :page="i"></pdf>
+        <pdf ref="pdf" v-for="i in numPages" :key="i"  :src="url" :page="i"></pdf>
       </div>
     </div>
   </div>
@@ -70,7 +70,10 @@ export default {
       } else {
         this.fontSize = '80%'
       }
-    }
+    },
+    pdfPrintAll() {
+	    this.$refs.pdf[0].print()
+		},
   }
 }
 </script>

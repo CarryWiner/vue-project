@@ -62,12 +62,6 @@ export default {
       activeMenu: 'homepage',
       menuList: [
         {
-          icon: "el-icon-s-home",
-          index: "homepage",
-          title: "主页",
-          name: "主页",
-        },
-        {
           icon: "el-icon-s-custom",
           index: "custommanage",
           title: "法规制度",
@@ -177,8 +171,8 @@ export default {
     if (Cookies.get('activeMenu')) {
       this.activeMenu = Cookies.get('activeMenu')
     } else {
-      this.$router.replace('/home')
-      this.activeMenu = 'homepage'
+      this.$router.replace('/rules/usermanage')
+      this.activeMenu = 'usermanage'
     }
   },
   mounted() {},

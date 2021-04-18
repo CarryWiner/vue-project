@@ -9,13 +9,8 @@ const routes = [
     path: '/',
     name: 'Layout',
     component: () => import('@/views/layout/layout'),
-    redirect: '/home',
+    redirect: '/rules/usermanage',
     children: [
-      {
-        path: '/home',
-        name: 'Home',
-        component: () => import('@/views/Home'),
-      },
       {
         path: '/rules/:userId',
         name: 'Rules',
